@@ -1,0 +1,115 @@
+<!--
+    Document   : ServiceAndRepair
+    Created on : Dec 7, 2014, 5:39:00 AM
+    Author     : Mohd
+-->
+<%@include file = "Mysql_connect.jsp" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.io.*" %> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="designCSS.css" rel="stylesheet">
+        <title>Car Service and Repair</title>
+    </head>
+    <body>
+         <%            
+         try {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                queryStmt = con.createStatement();
+
+                String QueryString = "SELECT * from maintenance";
+                rs = queryStmt.executeQuery(QueryString);
+                rs.next();
+        } catch (SQLException sqe) {
+            request.setAttribute("error", sqe);
+            out.println(sqe);
+        }
+        %>
+        <h1>Car Service and Repair</h1>
+        <TABLE>
+            <TR>
+                <TD>Bill Number : &nbsp;</TD>
+                <TD><%=session.getAttribute("billNo")%></TD>  
+            </TR>
+            <TR>  
+                <TD>Plat Number :&nbsp;</TD>
+                <TD><%=session.getAttribute("plat")%></TD>
+            <TR>     
+                <TD>Mileage     :&nbsp;</TD>
+                <TD><%=session.getAttribute("mileage")%></TD>
+            <TR>  
+                <TD>Date        :&nbsp;</TD>
+                <TD><%=session.getAttribute("mainDate")%></TD>
+            </TR>
+        </TABLE>
+        <CENTER>
+        <table>
+            <tr>
+                <td> <h1>Service</h1></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <option type="checkbox" name="service1" value="Engine Oil"</option>
+                    <option type="checkbox" name="service2" value="Oil Filter"</option>
+                </td>
+            </tr>
+            <tr>
+                <td><option type="checkbox" name="service3" value="Contact Point"</option></td>
+                <td><input type="text" name="CPValue"></input></td>
+            </tr>
+                <tr>
+                <td colspan="2">
+                    <option type="checkbox" name="service4" value="Spark Plug"</option>
+                    <option type="checkbox" name="service5" value="Air Filter"</option>
+                </td>
+            </tr>
+            <tr>        
+                <td><option type="checkbox" name="service6" value="Clutch Kit"</option></td>
+                <td><input type="text" name="CKValue"></input></td>
+            </tr>
+                <tr>        
+                <td colspan="2">
+                    <option type="checkbox" name="service7" value="Timing Belt Kit">Timing Belt Kit</option>
+                    <option type="checkbox" name="service8" value="Drive Shaft">Drive Shaft</option>
+                    <option type="checkbox" name="service9" value="Battery">Battery</option>
+                </td>
+            <%----------------------%>
+            </tr><br><br><br><br>
+            <tr>
+                <td>Spare Part Cost </td>
+                <td><input type="text" name="SPcost"></input></td>
+            </tr>
+            <tr>
+                <td>Other Part Description</td>
+                <td><input type="text" name="OPdescription"></input></td>
+            </tr>
+            <tr>
+                <td>Other Part Cost</td>
+                <td><input type="text" name="OPcost"></input></td>
+            </tr>
+            <tr>
+                <td>Service Charge</td>
+                <td><input type="text" name="servicecharge"></input></td>
+            </tr>
+            <tr>
+                <td>Total Cost</td>
+                <td><input type="text" name="totalCost"></input></td>
+            </tr>
+        </table>
+            
+        <input type="submit" value="Submit" > &nbsp;
+        <input type="reset" value="Reset" >  &nbsp;
+        <input type="reset" value="Back" > 
+        </CENTER>
+    </body>
+</html>
+
+
